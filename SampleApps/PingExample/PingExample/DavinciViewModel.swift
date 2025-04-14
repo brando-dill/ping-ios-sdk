@@ -25,14 +25,15 @@ import PingExternal_idp
 ///   - Discovery Endpoint
 ///   - Other optional fields
 public let davinci = DaVinci.createDaVinci { config in
-    let currentConfig = ConfigurationManager.shared.currentConfigurationViewModel
-    config.module(OidcModule.config) { oidcValue in
-        oidcValue.clientId = currentConfig?.clientId ?? ""
-        oidcValue.scopes = Set<String>(currentConfig?.scopes ?? [])
-        oidcValue.redirectUri = currentConfig?.redirectUri ?? ""
-        oidcValue.discoveryEndpoint = currentConfig?.discoveryEndpoint ?? ""
-    }
-    
+  //TODO: Provide here the Server configuration. Add the PingOne server Discovery Endpoint and the OAuth2.0 client details
+  config.module(OidcModule.config) { oidcValue in
+    oidcValue.clientId = "c98a2eaf-483d-469c-9990-1cc8e1142f02"
+      oidcValue.scopes = ["email", "address", "openid", "phone", "profile"]
+    oidcValue.redirectUri = "org.forgerock.demo://oauth2redirect"
+    oidcValue.discoveryEndpoint = "https://auth.pingone.com/4b69e4ad-03bd-4203-89bb-0504221d9a1c/as/.well-known/openid-configuration"
+    oidcValue.additionalParameters = ["favColor":"blue"]
+
+  }
 }
 
 // A view model that manages the flow and state of the DaVinci orchestration process.
@@ -41,7 +42,6 @@ public let davinci = DaVinci.createDaVinci { config in
 ///   - Progressing to the next node in the flow
 ///   - Maintaining the current and previous flow state
 ///   - Handling loading states
-@MainActor
 class DavinciViewModel: ObservableObject {
     /// Published property that holds the current state node data.
     @Published public var state: DavinciState = DavinciState()
@@ -64,6 +64,9 @@ class DavinciViewModel: ObservableObject {
         
         // Starts the DaVinci orchestration process and retrieves the first node.
         let next = await davinci.start()
+        if let successNode = next as? SuccessNode {
+            ConfigurationManager.shared.currentUser = successNode.user
+        }
         await MainActor.run {
             self.state = DavinciState(previous: next , node: next)
             isLoading = false
@@ -79,6 +82,9 @@ class DavinciViewModel: ObservableObject {
         if let current = node as? ContinueNode {
             // Retrieves the next node in the flow.
             let next = await current.next()
+            if let successNode = next as? SuccessNode {
+                ConfigurationManager.shared.currentUser = successNode.user
+            }
             await MainActor.run {
                 self.state = DavinciState(previous: current, node: next)
                 isLoading = false
@@ -89,6 +95,7 @@ class DavinciViewModel: ObservableObject {
     public func shouldValidate(node: ContinueNode) -> Bool {
         var shouldValidate = false
         for collector in node.collectors {
+<<<<<<< HEAD
             // Check if the collector is a social collector and if it has a resume request.
             // In that case, we should not validate the collectors and continue with the submission of the flow.
             if let socialCollector = collector as? IdpCollector {
@@ -97,6 +104,8 @@ class DavinciViewModel: ObservableObject {
                     return shouldValidate
                 }
             }
+=======
+>>>>>>> 4f17bd6 (Changed colors for Social Login for All Hands Company call.)
             if let collector = collector as? ValidatedCollector {
                 if collector.validate().count > 0 {
                     shouldValidate = true
@@ -122,7 +131,7 @@ class DavinciState {
     }
 }
 
-@MainActor
+
 public class ValidationViewModel: ObservableObject {
     @Published var shouldValidate = false
 }

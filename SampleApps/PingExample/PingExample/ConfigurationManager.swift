@@ -14,6 +14,7 @@ import SwiftUI
 import UIKit
 import PingOidc
 
+<<<<<<< HEAD
 
 //The ConfigurationManager class is used to manage the configuration settings for the SDK.
 //The class provides the following functionality:
@@ -25,12 +26,22 @@ import PingOidc
 
 class ConfigurationManager: ObservableObject, @unchecked Sendable {
     static let shared = ConfigurationManager()
+=======
+/*
+    The ConfigurationManager class is used to manage the configuration settings for the SDK.
+    The class provides the following functionality:
+       - Load the current configuration
+       - Save the current configuration
+       - Delete the saved configuration
+       - Provide the default configuration
+       - Start the SDK with the current configuration
+ */
+ 
+class ConfigurationManager: ObservableObject {
+    @MainActor static let shared = ConfigurationManager()
+>>>>>>> 4f17bd6 (Changed colors for Social Login for All Hands Company call.)
     public var currentConfigurationViewModel: ConfigurationViewModel?
-    public var currentUser: User? {
-        get async throws {
-            return await davinci.user()
-        }
-    }
+    public var currentUser: User?
     
     public func loadConfigurationViewModel() -> ConfigurationViewModel {
         if self.currentConfigurationViewModel == nil {
@@ -69,11 +80,11 @@ class ConfigurationManager: ObservableObject, @unchecked Sendable {
         
         //TODO: Provide here the Server configuration. Add the PingOne server Discovery Endpoint and the OAuth2.0 client details
         return ConfigurationViewModel(
-            clientId: <#"Client ID"#>,
-            scopes: [<#"scope1"#>, <#"scope2"#>, <#"scope3"#>], // Alter the scopes based on your clients configuration
-            redirectUri: <#"Redirect URI"#>,
-            signOutUri: <#"Redirect URI"#>,
-            discoveryEndpoint: <#"Discovery Endpoint"#>,
+            clientId: "c98a2eaf-483d-469c-9990-1cc8e1142f02",
+            scopes: ["email", "address", "openid", "phone", "profile"], // Alter the scopes based on your clients configuration
+            redirectUri: "org.forgerock.demo://oauth2redirect",
+            signOutUri: "org.forgerock.demo://oauth2redirect",
+            discoveryEndpoint: "https://auth.pingone.com/4b69e4ad-03bd-4203-89bb-0504221d9a1c/as/.well-known/openid-configuration",
             environment: "PingOne",
             cookieName: nil
         )
@@ -82,7 +93,6 @@ class ConfigurationManager: ObservableObject, @unchecked Sendable {
 
 //Extensions
 extension ObservableObject {
-    @MainActor
     var topViewController: UIViewController? {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }),
