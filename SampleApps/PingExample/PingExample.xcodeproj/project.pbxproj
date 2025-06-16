@@ -57,8 +57,8 @@
 		EC92B38F2DA03E0700E4246D /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = EC92B38E2DA03E0700E4246D /* SVGKit */; };
 		EC92B3912DA03E0700E4246D /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EC92B3902DA03E0700E4246D /* SVGKitSwift */; };
 		EC92B3932DA0422700E4246D /* DeviceCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC92B3922DA0422200E4246D /* DeviceCardView.swift */; };
-		ECA53F812D635C10002B35D4 /* External_idp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9FA0032D5F4EB300E2A31D /* External_idp.framework */; };
-		ECA53F822D635C10002B35D4 /* External_idp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC9FA0032D5F4EB300E2A31D /* External_idp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ECA53F812D635C10002B35D4 /* PingExternal_idp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9FA0032D5F4EB300E2A31D /* PingExternal_idp.framework */; };
+		ECA53F822D635C10002B35D4 /* PingExternal_idp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC9FA0032D5F4EB300E2A31D /* PingExternal_idp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ECA540BD2D6DD7D6002B35D4 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECA540BC2D6DD7D6002B35D4 /* AppTrackingTransparency.framework */; };
 		ECBF06732D5229BC0066A3BD /* PingBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0816AA2D4A692900F1AD02 /* PingBrowser.framework */; };
 		ECBF06742D5229BC0066A3BD /* PingBrowser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC0816AA2D4A692900F1AD02 /* PingBrowser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -193,7 +193,7 @@
 				A5560CA12CFE4EDA0076CA8D /* PingDavinci.framework in Embed Frameworks */,
 				A5560CA92CFE4EDA0076CA8D /* PingStorage.framework in Embed Frameworks */,
 				A5560CA72CFE4EDA0076CA8D /* PingOrchestrate.framework in Embed Frameworks */,
-				ECA53F822D635C10002B35D4 /* External_idp.framework in Embed Frameworks */,
+				ECA53F822D635C10002B35D4 /* PingExternal_idp.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,7 +269,7 @@
 				A5560CA82CFE4EDA0076CA8D /* PingStorage.framework in Frameworks */,
 				EC92B38F2DA03E0700E4246D /* SVGKit in Frameworks */,
 				A5560CA62CFE4EDA0076CA8D /* PingOrchestrate.framework in Frameworks */,
-				ECA53F812D635C10002B35D4 /* External_idp.framework in Frameworks */,
+				ECA53F812D635C10002B35D4 /* PingExternal_idp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,8 +461,8 @@
 		EC9F9FFA2D5F4EB200E2A31D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EC9FA0032D5F4EB300E2A31D /* External_idp.framework */,
-				EC9FA0052D5F4EB300E2A31D /* External-idpTests.xctest */,
+				EC9FA0032D5F4EB300E2A31D /* PingExternal_idp.framework */,
+				EC9FA0052D5F4EB300E2A31D /* PingExternal-idpTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -678,17 +678,17 @@
 			remoteRef = EC0816A92D4A692900F1AD02 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		EC9FA0032D5F4EB300E2A31D /* External_idp.framework */ = {
+		EC9FA0032D5F4EB300E2A31D /* PingExternal_idp.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = External_idp.framework;
+			path = PingExternal_idp.framework;
 			remoteRef = EC9FA0022D5F4EB300E2A31D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		EC9FA0052D5F4EB300E2A31D /* External-idpTests.xctest */ = {
+		EC9FA0052D5F4EB300E2A31D /* PingExternal-idpTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "External-idpTests.xctest";
+			path = "PingExternal-idpTests.xctest";
 			remoteRef = EC9FA0042D5F4EB300E2A31D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

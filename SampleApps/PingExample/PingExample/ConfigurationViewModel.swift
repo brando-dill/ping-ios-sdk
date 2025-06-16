@@ -39,8 +39,9 @@ class ConfigurationViewModel: ObservableObject, @unchecked Sendable {
     @Published public var discoveryEndpoint: String
     @Published public var environment: String
     @Published public var cookieName: String?
+    @Published public var additionalParameters: String?
     
-    public init(clientId: String, scopes: [String], redirectUri: String, signOutUri: String?, discoveryEndpoint: String, environment: String, cookieName: String? = nil) {
+    public init(clientId: String, scopes: [String], redirectUri: String, signOutUri: String?, discoveryEndpoint: String, environment: String, cookieName: String? = nil, additionalParameters: String?,) {
         self.clientId = clientId
         self.scopes = scopes
         self.redirectUri = redirectUri
@@ -48,6 +49,7 @@ class ConfigurationViewModel: ObservableObject, @unchecked Sendable {
         self.discoveryEndpoint = discoveryEndpoint
         self.environment = environment
         self.cookieName = cookieName
+        self.additionalParameters = additionalParameters
     }
     
     public func saveConfiguration() {
@@ -71,4 +73,6 @@ struct Configuration: Codable, Sendable {
     var discoveryEndpoint: String
     var environment: String
     var cookieName: String?
+    var additionalParameters: String?
+
 }

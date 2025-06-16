@@ -14,7 +14,6 @@ import SwiftUI
 import UIKit
 import PingOidc
 
-<<<<<<< HEAD
 
 //The ConfigurationManager class is used to manage the configuration settings for the SDK.
 //The class provides the following functionality:
@@ -26,22 +25,12 @@ import PingOidc
 
 class ConfigurationManager: ObservableObject, @unchecked Sendable {
     static let shared = ConfigurationManager()
-=======
-/*
-    The ConfigurationManager class is used to manage the configuration settings for the SDK.
-    The class provides the following functionality:
-       - Load the current configuration
-       - Save the current configuration
-       - Delete the saved configuration
-       - Provide the default configuration
-       - Start the SDK with the current configuration
- */
- 
-class ConfigurationManager: ObservableObject {
-    @MainActor static let shared = ConfigurationManager()
->>>>>>> 4f17bd6 (Changed colors for Social Login for All Hands Company call.)
     public var currentConfigurationViewModel: ConfigurationViewModel?
-    public var currentUser: User?
+    public var currentUser: User? {
+        get async throws {
+            return await davinci.user()
+        }
+    }
     
     public func loadConfigurationViewModel() -> ConfigurationViewModel {
         if self.currentConfigurationViewModel == nil {
@@ -54,7 +43,7 @@ class ConfigurationManager: ObservableObject {
     public func saveConfiguration() {
         if let currentConfiguration = self.currentConfigurationViewModel {
             let encoder = JSONEncoder()
-            let configuration = Configuration(clientId: currentConfiguration.clientId, scopes: currentConfiguration.scopes, redirectUri: currentConfiguration.redirectUri, signOutUri: currentConfiguration.signOutUri, discoveryEndpoint: currentConfiguration.discoveryEndpoint, environment: currentConfiguration.environment, cookieName: currentConfiguration.cookieName)
+            let configuration = Configuration(clientId: currentConfiguration.clientId, scopes: currentConfiguration.scopes, redirectUri: currentConfiguration.redirectUri, signOutUri: currentConfiguration.signOutUri, discoveryEndpoint: currentConfiguration.discoveryEndpoint, environment: currentConfiguration.environment, cookieName: currentConfiguration.cookieName, additionalParameters: currentConfiguration.additionalParameters)
             if let encoded = try? encoder.encode(configuration) {
                 let defaults = UserDefaults.standard
                 defaults.set(encoded, forKey: "CurrentConfiguration")
@@ -74,7 +63,7 @@ class ConfigurationManager: ObservableObject {
         if let savedConfiguration = defaults.object(forKey: "CurrentConfiguration") as? Data {
             let decoder = JSONDecoder()
             if let loadedConfiguration = try? decoder.decode(Configuration.self, from: savedConfiguration) {
-                return ConfigurationViewModel(clientId: loadedConfiguration.clientId, scopes: loadedConfiguration.scopes, redirectUri: loadedConfiguration.redirectUri, signOutUri: loadedConfiguration.signOutUri, discoveryEndpoint: loadedConfiguration.discoveryEndpoint, environment: loadedConfiguration.environment, cookieName: loadedConfiguration.cookieName)
+                return ConfigurationViewModel(clientId: loadedConfiguration.clientId, scopes: loadedConfiguration.scopes, redirectUri: loadedConfiguration.redirectUri, signOutUri: loadedConfiguration.signOutUri, discoveryEndpoint: loadedConfiguration.discoveryEndpoint, environment: loadedConfiguration.environment, cookieName: loadedConfiguration.cookieName, additionalParameters: loadedConfiguration.additionalParameters)
             }
         }
         
@@ -83,16 +72,18 @@ class ConfigurationManager: ObservableObject {
             clientId: "c98a2eaf-483d-469c-9990-1cc8e1142f02",
             scopes: ["email", "address", "openid", "phone", "profile"], // Alter the scopes based on your clients configuration
             redirectUri: "org.forgerock.demo://oauth2redirect",
-            signOutUri: "org.forgerock.demo://oauth2redirect",
+            signOutUri: nil,
             discoveryEndpoint: "https://auth.pingone.com/4b69e4ad-03bd-4203-89bb-0504221d9a1c/as/.well-known/openid-configuration",
             environment: "PingOne",
-            cookieName: nil
+            cookieName: nil,
+            additionalParameters: "favColor:blue"
         )
     }
 }
 
 //Extensions
 extension ObservableObject {
+    @MainActor
     var topViewController: UIViewController? {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }),

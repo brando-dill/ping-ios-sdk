@@ -2,7 +2,7 @@
 //  CustomViews.swift
 //  PingExample
 //
-//  Copyright (c) 2025 Ping Identity Corporation. All rights reserved.
+//  Copyright (c) 2025 Ping Identity. All rights reserved.
 //
 //  This software may be modified and distributed under the terms
 //  of the MIT license. See the LICENSE file for details.
@@ -68,7 +68,7 @@ extension Color {
     }
     
     static var themeButtonBackground: Color {
-        return Color(red: 163.0/255.0, green: 19.0/255.0, blue: 0.0/255.0) // Red color
+        return Color(red: 26.0/255.0, green: 115.0/255.0, blue: 232.0/255.0) // Red color
     }
     
     static var googleButtonBackground: Color {
@@ -81,5 +81,9 @@ extension Color {
     
     static var facebookButtonBackground: Color {
         return Color(red: 0.0/255.0, green: 128.0/255.0, blue: 255.0/255.0) // Red color
+    }
+    
+    static var microsoftButtonBackground: Color {
+        return Color(red: 47/255.0, green: 47/255.0, blue: 47/255.0) // Red color
     }
 }

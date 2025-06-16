@@ -38,11 +38,11 @@ public struct SocialButtonView: View {
                 socialButtonViewModel.socialButtonText()
             }
         }
-        .padding()
         .frame(maxWidth: .infinity)
     }
 }
 
+@MainActor
 public class SocialButtonViewModel: ObservableObject {
     @Published public var isComplete: Bool = false
     public let idpCollector: IdpCollector
@@ -65,7 +65,7 @@ public class SocialButtonViewModel: ObservableObject {
         case "FACEBOOK":
             bgColor = Color.facebookButtonBackground
         case "MICROSOFT":
-            bgColor = Color.
+            bgColor = Color.microsoftButtonBackground
         default:
             bgColor = Color.themeButtonBackground
         }
